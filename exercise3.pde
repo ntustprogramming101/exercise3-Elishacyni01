@@ -164,9 +164,26 @@ void draw()
       }
       
       //wall crash detection
+      //1st wall
       if(shipY > wall1Y - shipWidth && shipY < wall1Y + wallWeight)
       {
-        if(shipX < hole1X - shipWidth || shipX > hole1X + wall1HoleWidth)
+        if(shipX < hole1X || shipX + shipWidth > hole1X + wall1HoleWidth)
+        {
+          gameState = GAME_OVER;
+        }
+      }
+      //2nd wall
+      if(shipY > wall2Y - shipWidth && shipY < wall2Y + wallWeight)
+      {
+        if(shipX < hole2X || shipX + shipWidth > hole2X + wall2HoleWidth)
+        {
+          gameState = GAME_OVER;
+        }
+      }
+      //3rd wall
+      if(shipY > wall3Y - shipWidth && shipY < wall3Y + wallWeight)
+      {
+        if(shipX < hole3X || shipX + shipWidth > hole3X + wall3HoleWidth)
         {
           gameState = GAME_OVER;
         }
@@ -176,9 +193,9 @@ void draw()
       break;
     case GAME_WIN:
       image(win, 0, 0);
-      break;
+      break; //<>//
       
-    case GAME_OVER:
+    case GAME_OVER: //<>//
       image(lose, 0, 0);
       break;
   }
@@ -191,11 +208,12 @@ void keyPressed()
     // detect special keys
     switch (keyCode) 
     {
-      case ENTER:
-        if(gameState = GAME_WIN || gameState = GAME_OVER)
+      case ENTER: //<>//
+        if(gameState == GAME_WIN || gameState == GAME_OVER)
         {
           shipX = width / 2 - shipWidth / 2;
           shipY = 0;
+          gameState = GAME_RUN; //<>//
         }
         break;
       case UP:
